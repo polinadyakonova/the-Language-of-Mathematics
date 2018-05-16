@@ -1,0 +1,18 @@
+from collections import Counter
+from pymystem3 import Mystem
+import re
+import operator
+m = Mystem()
+filename = input()
+text = open(r"books\\" + filename + ".txt", 'r', encoding="utf-8")
+data = text.read()
+text.close()
+data_list =  re.split(' ', ''.join(m.lemmatize(re.sub(' +', ' ', re.sub('[^а-я]', ' ', data.lower())))))[:-1]
+counts = Counter(data_list)
+print(data_list)
+c = sorted(counts.items(), key = operator.itemgetter(1))
+output1 = open("statistic\\" + filename + "_res.txt", 'w')
+for i in c:
+    output1.write(str(i)[1:-1] + '\n')
+output1.close()
+print(counts) 
