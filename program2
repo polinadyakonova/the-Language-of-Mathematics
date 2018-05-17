@@ -1,0 +1,13 @@
+from pymystem3 import Mystem
+import re
+m = Mystem()
+text = open(r"books\\app3.txt", 'r', encoding="utf-8")
+data = text.read()
+text.close()
+data_list = set(re.split(' ', ''.join(m.lemmatize(re.sub(' +', ' ', re.sub('[^а-я]', ' ', data.lower())))))[:-1])
+text = open(r"books\\variants.txt", 'r', encoding="utf-8")
+data = text.read()
+text.close()
+data_list1 = set(re.split(' ', ''.join(m.lemmatize(re.sub(' +', ' ', re.sub('[^а-я]', ' ', data.lower())))))[:-1])
+data3 = data_list & data_list1
+print(len(data3)/len(data_list1))
